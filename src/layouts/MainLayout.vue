@@ -10,12 +10,10 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
+        <q-space></q-space>
+        <q-space></q-space>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <AccountMenu />
       </q-toolbar>
     </q-header>
 
@@ -24,20 +22,61 @@
       show-if-above
       bordered
       content-class="bg-grey-1"
+      class="left-drawer"
     >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+      <q-item>
+        <img
+          alt="Vpsie log"
+          src="~assets/logo.png"
+    >
+      </q-item>
+      <q-separator />
+
+      <q-item
+       style="display: flex"
+      >
+        <q-item-section top avatar>
+          Carlos Feliz
+          <q-item-section>
+            <q-btn
+            label="Earn credits"
+            color="green"
+            size="sm"
+            outline
+            ripple
+            />
+          </q-item-section>
+        </q-item-section>
+
+      </q-item>
+      <q-scroll-area style="height: calc(100% - 350px); border-right: 1px solid #ddd;">
+          <q-list clickable v-ripple>
+            <EssentialLink
+              v-for="link in essentialLinks"
+              :key="link.title"
+              v-bind="link"
+            />
+         </q-list>
+      </q-scroll-area>
+
+      <q-separator />
+      <q-item>
+        <q-item-section top avatar>
+          Settings
+        </q-item-section>
+      </q-item>
+
+      <q-scroll-area style="height: calc(100% - 350px); border-right: 1px solid #ddd;">
+        <q-list clickable v-ripple>
+          <EssentialLink
+            v-for="link in settinglist"
+            :key="link.title"
+            v-bind="link"
+          />
+        </q-list>
+      </q-scroll-area>
+
+
     </q-drawer>
 
     <q-page-container>
@@ -47,61 +86,74 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
+import EssentialLink from 'components/EssentialLink.vue';
+import AccountMenu from 'components/AcountMenu.vue'
 
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
+  components: { EssentialLink, AccountMenu },
   data () {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      settinglist:[
+              {
+                title: 'Add SSH Key',
+              },
+              {
+                title: 'Add Custom ISO Image',
+              },
+              {
+                title: 'Add Startup Script',
+              },
+              {
+                title: 'Add IP to VPSiw',
+              },
+    ],
+      essentialLinks:  [
+  {
+    title: 'VPSis',
+    caption: 'quasar.dev',
+  },
+  {
+    title: 'PCS',
+    caption: 'github.com/quasarframework',
+  },
+  {
+    title: 'Recovery',
+    caption: 'chat.quasar.dev',
+  },
+  {
+    title: 'Billing',
+    caption: 'forum.quasar.dev',
+  },
+  {
+    title: 'DNS',
+    caption: '@quasarframework',
+  },
+  {
+    title: 'Support',
+    caption: '@QuasarFramework',
+  },
+  {
+    title: 'Activities',
+    caption: 'Community Quasar projects',
+  },
+  {
+    title: 'FAQ',
+    caption: 'Community Quasar projects',
+  },
+  {
+    title: 'Settings',
+    caption: 'Community Quasar projects',
+  }
+]
     }
   }
 }
 </script>
+<style>
+ .q-drawer__content{
+   overflow-y: hidden;
+ }
+</style>
